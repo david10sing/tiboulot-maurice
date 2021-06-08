@@ -1,0 +1,12 @@
+{
+  "name": "tiboulot-maurice",
+  "displayName": "tiboulot-maurice",
+  "expo": {
+    "name": "tiboulot-maurice",
+    "slug": "tiboulot-maurice",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

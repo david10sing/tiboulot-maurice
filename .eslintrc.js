@@ -7,6 +7,7 @@ module.exports = {
     'plugin:react/recommended',
     'airbnb',
     'plugin:@typescript-eslint/recommended',
+    'plugin:react-hooks/recommended',
     'prettier',
     'prettier/prettier',
     'plugin:prettier/recommended',
@@ -56,9 +57,4 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/prop-types': 'off',
   },
-  settings: {
-    'import/resolver': {
-      typescript: {},
-    },
-  },
-}
+};

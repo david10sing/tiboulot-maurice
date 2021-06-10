@@ -7,6 +7,10 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "ios": {
+      "bundleIdentifier": "mu.david10sing.tiboulotmaurice",
+      "googleServicesFile": "./ios/tiboulotmaurice/GoogleService-Info.plist"
+    }
   }
 }

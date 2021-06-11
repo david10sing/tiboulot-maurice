@@ -3,11 +3,10 @@
   "displayName": "tiboulot-maurice",
   "expo": {
     "name": "tiboulot-maurice",
+    "owner": "david10sing",
     "slug": "tiboulot-maurice",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "version": "0.0.0",
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "mu.david10sing.tiboulotmaurice",
       "googleServicesFile": "./ios/tiboulotmaurice/GoogleService-Info.plist"

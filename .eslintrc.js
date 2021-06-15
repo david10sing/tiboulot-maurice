@@ -21,6 +21,13 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react', '@typescript-eslint'],
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json']
+      }
+    },
+  },
   rules: {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
@@ -59,7 +66,7 @@ module.exports = {
     'react/jsx-props-no-spreading': [
       'warn', 
       {
-        exceptions: ['ApplicationProvider']
+        exceptions: ['ApplicationProvider', 'DrawerContent']
       }
     ],
     "no-unused-vars": "off",

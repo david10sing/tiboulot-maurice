@@ -7,9 +7,11 @@
     "slug": "tiboulot-maurice",
     "version": "0.0.0",
     "assetBundlePatterns": ["**/*"],
+    "orientation": "portrait",
     "ios": {
       "bundleIdentifier": "mu.david10sing.tiboulotmaurice",
-      "googleServicesFile": "./ios/tiboulotmaurice/GoogleService-Info.plist"
+      "googleServicesFile": "./ios/tiboulotmaurice/GoogleService-Info.plist",
+      "requireFullScreen": true
     }
   }
 }

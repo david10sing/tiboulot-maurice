@@ -3,6 +3,5 @@
 .eslintrc.js
 package.json
 yarn.lock
-__tests__/
 metro.config.js
 jest/*

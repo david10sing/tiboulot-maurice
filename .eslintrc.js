@@ -57,6 +57,7 @@ module.exports = {
       'warn',
       {
         code: 80,
+        ignorePattern: "AppNavigatorParamList"
       },
     ],
     'react-hooks/rules-of-hooks': 'error',
@@ -66,10 +67,15 @@ module.exports = {
     'react/jsx-props-no-spreading': [
       'warn', 
       {
-        exceptions: ['ApplicationProvider', 'DrawerContent']
+        exceptions: [ 'WelcomeScreen', 'TiBoulotAppProvider', 'MockedNavigator', 'ApplicationProvider', 'DrawerContent', 'Icon']
       }
     ],
     "no-unused-vars": "off",
-    '@typescript-eslint/no-unused-vars': ['warn']
+    '@typescript-eslint/no-unused-vars': ['warn'],
+    "react/style-prop-object": ['error', {
+      "allow": ['StatusBar']
+    }],
+    "react/prop-types": "off",
+    "react/require-default-props": "off"
   },
 };

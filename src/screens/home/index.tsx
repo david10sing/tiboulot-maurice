@@ -4,17 +4,14 @@ import {
   Button,
   ButtonProps,
   Icon,
-  IconProps,
   Input,
   Layout,
   Text,
 } from '@ui-kitten/components';
-import React, { FC, ReactElement, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 import { Col, Row, Grid } from 'react-native-easy-grid';
-import { ImageProps, StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import * as ScreenOrientation from 'expo-screen-orientation';
-import { Shadow } from 'react-native-shadow-2';
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
@@ -61,10 +58,6 @@ const TiBoulotAvatar: ButtonProps['accessoryLeft'] = (props) => {
 
 const HomeStackScreen = (): ReactElement => {
   const navigation = useNavigation();
-
-  useEffect(() => {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
-  }, []);
   return (
     <Layout style={[styles.layout]}>
       <Grid>

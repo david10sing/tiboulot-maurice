@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import React, { FC, ReactElement, useEffect, useState } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
 import {
   Button,
   ButtonProps,
@@ -11,7 +11,7 @@ import {
   Text,
   useTheme,
 } from '@ui-kitten/components';
-import { Alert, StyleSheet } from 'react-native';
+import { Alert, Pressable, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import firebase from 'firebase';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
@@ -23,6 +23,7 @@ import FacebookButton from '../../components/facebook/facebook-button';
 import SocialDivider from '../../components/social-divider';
 import BaseLayout from '../../components/layout/base';
 import { AppNavigatorParamList } from '../../components/navigator/app-navigator';
+import { storeUnsafeData } from '../../api/local-storage';
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
@@ -87,6 +88,8 @@ const SignInScreen: FC<SignInScreenProps> = () => {
         .signInWithEmailAndPassword(email, password)
         .then((userCredential: firebase.auth.UserCredential) => {
           /** @todo persist the user credential across the app's state */
+          /** @todo add firstTimeUser: false to async storage */
+          storeUnsafeData('isFirstTimeUser', false);
         })
         .catch((err: firebase.auth.Error) => {
           Alert.alert('Login error', err.message);
@@ -187,13 +190,20 @@ const SignInScreen: FC<SignInScreenProps> = () => {
           <Button testID="signInBtn" onPress={handleEmailSignIn}>
             Sign In
           </Button>
-          <Button
+          <Pressable
+            style={{ alignSelf: 'center', marginTop: 20 }}
             testID="forgotPasswordBtn"
-            appearance="ghost"
             onPress={handleForgotPassword}
           >
-            Forgot Password?
-          </Button>
+            <Text
+              style={{
+                color: theme['color-primary-default'],
+                fontWeight: 'bold',
+              }}
+            >
+              Forgot Password?
+            </Text>
+          </Pressable>
         </Layout>
         <SocialDivider />
         <Layout style={[styles.socialCtn]}>

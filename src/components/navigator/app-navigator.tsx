@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useState, useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
   Icon,
@@ -55,7 +55,7 @@ const AppNavigator = (): ReactElement => {
       <AppStack.Navigator
         headerMode="screen"
         screenOptions={{ headerShown: false }}
-        initialRouteName="Login"
+        initialRouteName="Welcome"
       >
         {!currentUser && (
           <>

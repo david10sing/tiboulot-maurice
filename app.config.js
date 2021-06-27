@@ -9,6 +9,9 @@ export default {
     version: '0.0.0',
     assetBundlePatterns: ['**/*'],
     orientation: 'portrait',
+    android: {
+      softwareKeyboardLayoutMode: 'pan',
+    },
     ios: {
       bundleIdentifier: 'mu.david10sing.tiboulotmaurice',
       googleServicesFile: './ios/tiboulotmaurice/GoogleService-Info.plist',

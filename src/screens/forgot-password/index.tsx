@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import React, { FC, ReactElement, useEffect, useState } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
 import {
   Button,
   ButtonProps,
@@ -14,11 +14,9 @@ import {
 import { Alert, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import firebase from 'firebase';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { auth } from '../../api/firebase';
-import Facebook from '../../api/facebook';
 import BaseStyles from '../../styles/base';
-import FacebookButton from '../../components/facebook/facebook-button';
-import SocialDivider from '../../components/social-divider';
 import BaseLayout from '../../components/layout/base';
 import { AppNavigatorParamList } from '../../components/navigator/app-navigator';
 
@@ -35,10 +33,6 @@ type ForgotPasswordScreenProps = {
 
 const EmailIcon: InputProps['accessoryLeft'] = (props): ReactElement => {
   return <Icon name="email-outline" {...props} />;
-};
-
-const PasswordIcon: InputProps['accessoryLeft'] = (props): ReactElement => {
-  return <Icon name="lock" {...props} />;
 };
 
 const BackIcon: ButtonProps['accessoryLeft'] = (props) => (
@@ -73,6 +67,7 @@ const ForgotPasswordScreen: FC<ForgotPasswordScreenProps> = (
   const [email, setEmail] = useState<string>();
 
   const theme = useTheme();
+  const { top } = useSafeAreaInsets();
 
   const handleResetPassword = (): void => {
     if (email?.length) {
@@ -114,6 +109,7 @@ const ForgotPasswordScreen: FC<ForgotPasswordScreenProps> = (
           justifyContent: 'flex-start',
           maxHeight: 300,
           padding: 20,
+          paddingTop: top,
           width: '100%',
         }}
       >

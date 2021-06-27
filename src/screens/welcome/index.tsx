@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { Button, Layout, Text } from '@ui-kitten/components';
 import { StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -11,6 +11,7 @@ import { AppNavigatorParamList } from '../../components/navigator/app-navigator'
 import FacebookButton from '../../components/facebook/facebook-button';
 import SocialDivider from '../../components/social-divider';
 import BaseLayout from '../../components/layout/base';
+import { isFirstTimeUser } from '../../api/local-storage';
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
@@ -45,6 +46,12 @@ const styles = StyleSheet.create({
 const WelcomeScreen = (props: WelcomeScreenProps): ReactElement => {
   const { onSignIn, onSignUp } = props;
   const navigation = useNavigation();
+
+  useEffect(() => {
+    if (isFirstTimeUser()) {
+      navigation.navigate('SignIn');
+    }
+  }, []);
 
   const handleSignIn = (): void => {
     if (isFunction(onSignIn)) {

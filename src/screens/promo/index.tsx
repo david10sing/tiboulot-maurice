@@ -2,6 +2,7 @@
 
 import { Button, Layout } from '@ui-kitten/components';
 import React, { FC } from 'react';
+import BaseHomeLayout from '../../components/layout/base-home';
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
@@ -9,9 +10,9 @@ type PromoScreenProps = null;
 
 const PromoScreen: FC<PromoScreenProps> = (props: PromoScreenProps) => {
   return (
-    <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <BaseHomeLayout>
       <Button>PROMO</Button>
-    </Layout>
+    </BaseHomeLayout>
   );
 };
 

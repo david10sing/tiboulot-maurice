@@ -12,8 +12,12 @@ import React, { ReactElement } from 'react';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import BaseHomeLayout from '../../components/layout/base-home';
+import BaseStyles from '../../styles/base';
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
+
+const { shadowBase } = BaseStyles;
 
 const styles = StyleSheet.create({
   avatarCtn: {
@@ -25,23 +29,11 @@ const styles = StyleSheet.create({
     bottom: 40,
     left: 0,
     right: 0,
-    backgroundColor: '#FFF',
   },
   floatingPaperInner: {
-    elevation: 2,
     padding: 10,
-    backgroundColor: '#FFF',
     borderRadius: 80,
-    shadowColor: '#000',
-    shadowOffset: { height: 0, width: 0 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
     width: '90%',
-  },
-  layout: {
-    padding: 20,
-    flex: 1,
-    position: 'relative',
   },
   search: {
     borderRadius: 50,
@@ -59,7 +51,7 @@ const TiBoulotAvatar: ButtonProps['accessoryLeft'] = (props) => {
 const HomeStackScreen = (): ReactElement => {
   const navigation = useNavigation();
   return (
-    <Layout style={[styles.layout]}>
+    <BaseHomeLayout>
       <Grid>
         <Row>
           <Col size={4}>
@@ -80,7 +72,7 @@ const HomeStackScreen = (): ReactElement => {
         </Row>
       </Grid>
       <Grid style={[styles.floatingPaper]}>
-        <Row style={[styles.floatingPaperInner]}>
+        <Row style={[styles.floatingPaperInner, shadowBase]}>
           <Col style={{ alignItems: 'center' }}>
             <Button
               status="primary"
@@ -131,7 +123,7 @@ const HomeStackScreen = (): ReactElement => {
           </Col>
         </Row>
       </Grid>
-    </Layout>
+    </BaseHomeLayout>
   );
 };
 

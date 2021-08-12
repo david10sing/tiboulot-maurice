@@ -10,6 +10,7 @@ import {
 } from '@ui-kitten/components';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import ProfileScreen from '../../screens/profile';
 import HomeNavigator from './home-navigator';
 
@@ -18,6 +19,9 @@ import SignInScreen from '../../screens/signin';
 import WelcomeScreen from '../../screens/welcome';
 import SignUpScreen from '../../screens/signup';
 import ForgotPasswordScreen from '../../screens/forgot-password';
+import { AuthState, setUser } from '../../redux/authSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks';
+import ProfileEditScreen from '../../screens/profile-edit';
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
@@ -27,6 +31,8 @@ export type AppNavigatorParamList = {
   SignUp: undefined;
   Home: undefined;
   ForgotPassword: undefined;
+  Profile: undefined;
+  ProfileEdit: undefined;
 };
 
 const AppStack = createStackNavigator();
@@ -37,17 +43,41 @@ const BackIcon: TopNavigationProps['accessoryLeft'] = (props) => (
 
 const BackAction = (): ReactElement => {
   const navigation = useNavigation();
+  const handleGoBack = (): void => {
+    navigation.goBack();
+  };
   return (
-    <TopNavigationAction onPress={() => navigation.goBack()} icon={BackIcon} />
+    <TopNavigationAction
+      style={{ paddingRight: 10 }}
+      onPress={handleGoBack}
+      icon={BackIcon}
+    />
   );
 };
 
 const AppNavigator = (): ReactElement => {
-  const [currentUser, setCurrentUser] = useState(auth.currentUser);
+  const authState = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+  const { top } = useSafeAreaInsets();
 
-  auth.onAuthStateChanged((user) => {
-    setCurrentUser(user);
-  });
+  useEffect(() => {
+    auth.onAuthStateChanged((userCredentials) => {
+      if (userCredentials) {
+        dispatch(
+          setUser({
+            displayName: userCredentials?.displayName,
+            email: userCredentials.email,
+            emailVerified: userCredentials.emailVerified,
+            phoneNumber: userCredentials.phoneNumber,
+            photoURL: userCredentials.photoURL,
+          })
+        );
+        return;
+      }
+
+      dispatch(setUser(null));
+    });
+  }, [dispatch]);
 
   return (
     <>
@@ -57,7 +87,7 @@ const AppNavigator = (): ReactElement => {
         screenOptions={{ headerShown: false }}
         initialRouteName="Welcome"
       >
-        {!currentUser && (
+        {!authState.user && (
           <>
             <AppStack.Screen name="Welcome" component={WelcomeScreen} />
             <AppStack.Screen name="SignIn" component={SignInScreen} />
@@ -68,7 +98,7 @@ const AppNavigator = (): ReactElement => {
             />
           </>
         )}
-        {currentUser && (
+        {authState.user && (
           <>
             <AppStack.Screen name="Home" component={HomeNavigator} />
             <AppStack.Screen
@@ -78,7 +108,33 @@ const AppNavigator = (): ReactElement => {
                 headerShown: true,
                 header: () => {
                   return (
-                    <TopNavigation title="Profile" accessoryLeft={BackAction} />
+                    <TopNavigation
+                      style={{
+                        paddingTop: top,
+                        height: 50 + top,
+                      }}
+                      title="Profile"
+                      accessoryLeft={BackAction}
+                    />
+                  );
+                },
+              }}
+            />
+            <AppStack.Screen
+              name="ProfileEdit"
+              component={ProfileEditScreen}
+              options={{
+                headerShown: true,
+                header: () => {
+                  return (
+                    <TopNavigation
+                      style={{
+                        paddingTop: top,
+                        height: 50 + top,
+                      }}
+                      title="Edit Profile"
+                      accessoryLeft={BackAction}
+                    />
                   );
                 },
               }}

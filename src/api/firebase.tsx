@@ -23,6 +23,6 @@ if (!firebase.apps.length) {
 
 const auth = firebase.auth();
 
-auth.useEmulator('http://192.168.100.239:9099');
+// auth.useEmulator('http://192.168.100.239:9099');
 
 export { auth };

@@ -6,20 +6,28 @@ import React, { ReactElement } from 'react';
 // Note: test renderer must be required after react-native.
 import * as eva from '@eva-design/eva';
 import { render } from '@testing-library/react-native';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
 import customTheme from '../src/tiboulot-maurice-theme.json';
 import TiBoulotAppProvider from '../src/components/appProvider';
 import SignInScreen, { SignInScreenProps } from '../src/screens/signin';
 import MockedNavigator from './__mocks__/app-navigator';
+import store from '../src/redux/root-store';
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
 jest.useFakeTimers();
 
+const persistor = persistStore(store);
+
 const RenderedScreen = (props: SignInScreenProps): ReactElement => {
   return (
-    <TiBoulotAppProvider {...eva} theme={{ ...eva.light, ...customTheme }}>
-      <MockedNavigator component={SignInScreen} {...props} />
-    </TiBoulotAppProvider>
+    <Provider store={store}>
+      <TiBoulotAppProvider {...eva} theme={{ ...eva.light, ...customTheme }}>
+        <MockedNavigator component={SignInScreen} {...props} />
+      </TiBoulotAppProvider>
+    </Provider>
   );
 };
 

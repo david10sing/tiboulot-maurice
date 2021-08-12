@@ -65,10 +65,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/prop-types': 'off',
     'react/jsx-props-no-spreading': [
-      'warn', 
-      {
-        exceptions: [ 'WelcomeScreen', 'TiBoulotAppProvider', 'MockedNavigator', 'ApplicationProvider', 'DrawerContent', 'Icon']
-      }
+      'off', 
     ],
     "no-unused-vars": "off",
     '@typescript-eslint/no-unused-vars': ['warn'],

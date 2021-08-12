@@ -24,6 +24,8 @@ import SocialDivider from '../../components/social-divider';
 import BaseLayout from '../../components/layout/base';
 import { AppNavigatorParamList } from '../../components/navigator/app-navigator';
 import { storeUnsafeData } from '../../api/local-storage';
+import { useAppDispatch, useAppSelector } from '../../redux/redux-hooks';
+import { signIn } from '../../redux/authSlice';
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
@@ -76,6 +78,8 @@ const SignInScreen: FC<SignInScreenProps> = () => {
   const navigation = useNavigation<SignInScreenNavigationProp>();
   const route = useRoute<SignInScreenRouteProp>();
 
+  const dispatch = useAppDispatch();
+
   const [email, setEmail] = useState<string | undefined>(route.params?.email);
   const [password, setPassword] = useState<string | undefined>();
 
@@ -88,8 +92,6 @@ const SignInScreen: FC<SignInScreenProps> = () => {
         .signInWithEmailAndPassword(email, password)
         .then((userCredential: firebase.auth.UserCredential) => {
           /** @todo persist the user credential across the app's state */
-          /** @todo add firstTimeUser: false to async storage */
-          storeUnsafeData('isFirstTimeUser', false);
         })
         .catch((err: firebase.auth.Error) => {
           Alert.alert('Login error', err.message);

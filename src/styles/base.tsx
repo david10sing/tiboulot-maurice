@@ -19,6 +19,10 @@ const BaseStyles = StyleSheet.create({
   textAlignCenter: {
     textAlign: 'center',
   },
+  center: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 export default BaseStyles;

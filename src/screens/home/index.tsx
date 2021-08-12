@@ -1,13 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import {
-  Button,
-  ButtonProps,
-  Icon,
-  Input,
-  Layout,
-  Text,
-} from '@ui-kitten/components';
+import { Button, ButtonProps, Icon, Input, Text } from '@ui-kitten/components';
 import React, { ReactElement } from 'react';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { StyleSheet } from 'react-native';

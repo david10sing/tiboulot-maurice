@@ -29,6 +29,8 @@ import FacebookButton from '../../components/facebook/facebook-button';
 import SocialDivider from '../../components/social-divider';
 import BaseLayout from '../../components/layout/base';
 import { AppNavigatorParamList } from '../../components/navigator/app-navigator';
+import { useAppDispatch } from '../../redux/redux-hooks';
+import { setUser, updateProfile } from '../../redux/authSlice';
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
 
@@ -84,6 +86,8 @@ const SignUpScreen: FC<SignUpScreenProps> = (props: SignUpScreenProps) => {
   const [password, setPassword] = useState<string>();
   const [fullName, setFullName] = useState<string>();
 
+  const dispatch = useAppDispatch();
+
   const theme = useTheme();
   const { top } = useSafeAreaInsets();
 
@@ -91,12 +95,14 @@ const SignUpScreen: FC<SignUpScreenProps> = (props: SignUpScreenProps) => {
     if (email && password) {
       auth
         .createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          userCredential.user?.updateProfile({
+        .then(async (userCredential) => {
+          await userCredential.user?.updateProfile({
             displayName: fullName,
           });
         })
-
+        .then(() => {
+          dispatch(setUser({ displayName: fullName }));
+        })
         .catch((err: firebase.auth.Error) => {
           Alert.alert('Sign Up Error', err.message, [
             {

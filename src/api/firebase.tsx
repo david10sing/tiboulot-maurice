@@ -3,6 +3,7 @@ import { API_KEY, AUTH_DOMAIN, PROJECT_ID, APP_ID } from 'react-native-dotenv';
 
 // Optionally import the services that you want to use
 import 'firebase/auth';
+// import * as firebaseui from 'firebaseui';
 
 // Initialize Firebase
 export const firebaseConfig = {
@@ -21,4 +22,7 @@ if (!firebase.apps.length) {
 }
 
 const auth = firebase.auth();
-auth.useEmulator('http://localhost:9099');
+
+// auth.useEmulator('http://192.168.100.239:9099');
+
+export { auth };

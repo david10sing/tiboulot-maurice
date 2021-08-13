@@ -1,30 +1,33 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import React, { ReactElement, useEffect } from 'react';
-import * as eva from '@eva-design/eva';
-import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
-import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { NavigationContainer } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
-import customTheme from './src/tiboulot-maurice-theme.json';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
 import AppNavigator from './src/components/navigator/app-navigator';
+import TiBoulotAppProvider from './src/components/appProvider';
+import store from './src/redux/root-store';
 
 /* eslint-enable @typescript-eslint/no-unused-vars */
+
+const persistor = persistStore(store);
 
 const App = (): ReactElement => {
   useEffect(() => {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
   }, []);
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider {...eva} theme={{ ...eva.light, ...customTheme }}>
-        <NavigationContainer>
-          <AppNavigator />
-        </NavigationContainer>
-      </ApplicationProvider>
-    </SafeAreaView>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <TiBoulotAppProvider>
+          <NavigationContainer>
+            <AppNavigator />
+          </NavigationContainer>
+        </TiBoulotAppProvider>
+      </PersistGate>
+    </Provider>
   );
 };
 

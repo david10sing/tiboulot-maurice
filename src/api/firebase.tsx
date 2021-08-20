@@ -3,6 +3,8 @@ import { API_KEY, AUTH_DOMAIN, PROJECT_ID, APP_ID } from 'react-native-dotenv';
 
 // Optionally import the services that you want to use
 import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/storage';
 // import * as firebaseui from 'firebaseui';
 
 // Initialize Firebase
@@ -22,7 +24,13 @@ if (!firebase.apps.length) {
 }
 
 const auth = firebase.auth();
+const firestore = firebase.firestore();
+const storage = firebase.storage();
 
-// auth.useEmulator('http://192.168.100.239:9099');
+// if (process.env.NODE_ENV === 'development') {
+// }
+auth.useEmulator('http://localhost:9099');
+firestore.useEmulator('localhost', 8080);
+storage.useEmulator('localhost', 9199);
 
-export { auth };
+export { auth, firestore };
